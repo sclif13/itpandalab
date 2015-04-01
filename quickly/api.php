@@ -32,6 +32,20 @@ if (!empty($_POST)){
 				getDopFoods($_POST['restaurant_id'],$_POST['categorie_id'],$_POST['food_id']);
 			}
 			break;
+		
+		case 'setCousines':
+			setCousines();
+			break;
+		case 'setRestaurants':
+			setRestaurants();
+			break;
+		case 'setCategories':
+			setCategories();
+			break;
+		case 'setFoods':
+			setFoods();
+			break;
+
 		default:
 			break;
 	}
@@ -102,7 +116,43 @@ function getDopFoods($categorie_id, $restaurant_id, $food_id){
 	}
 
 	echo json_encode($rows);	
-}		
+}
+
+function setCousines(){
+	if(!empty($_POST['name']) && !empty($_POST['picture'])) {
+		if(!empty($_POST['id'])) {
+			$query="UPDATE cousines SET name ='".$_POST['name']."', picture ='".$_POST['picture']."' 
+					WHERE id ='".$_POST['id']."'";
+			mysql_query($query);
+		} else {
+			$query = "INSERT INTO cousines (name, picture) VALUES ('".$_POST['name']."','".$_POST['picture']."')";
+			mysql_query($query);
+		}
+	}
+}
+
+function setRestaurants(){
+	
+}
+
+function setCategories(){
+	if(!empty($_POST['name']) && !empty($_POST['picture']) && !empty($_POST['restaurant_id'])) {
+		if(!empty($_POST['id'])) {
+			$query="UPDATE categories SET name ='".$_POST['name']."', picture ='".$_POST['picture']."',
+					restaurant_id ='".$_POST['restaurant_id']."' 
+					WHERE id ='".$_POST['id']."'";
+			mysql_query($query);
+		} else {
+			$query = "INSERT INTO categories (name, picture, restaurant_id)
+						VALUES ('".$_POST['name']."','".$_POST['picture']."','".$_POST['restaurant_id']."')";
+			mysql_query($query);
+		}
+	}
+}
+
+function setFoods(){
+	
+}
 
 db_disconnect($db_link);
 ?>

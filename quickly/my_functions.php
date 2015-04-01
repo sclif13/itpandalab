@@ -11,6 +11,8 @@ function db_connect() {
   } else {
     mysql_select_db($db_name, $link);
 	mysql_query("SET character_set_results = 'utf8'");
+	mysql_query("SET NAMES 'UTF-8'");
+	mysql_set_charset('utf8',$link);
   }
   return $link;
 }
